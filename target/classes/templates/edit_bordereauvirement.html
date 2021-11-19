@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"/>
+<head>
+<meta charset="utf-8"/>
+<title>Edition d'un Bordereau de virement</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="col-md-6 col-xs-12 spacer col-md-offset-3">
+<div class="panel panel-default">
+<div class="panel-heading">Edition d'un bordereau de virement</div>
+<div class="panel-body">
+<form th:action="@{/cheques/Savebordereauvirement}" method="post" th:object="${bordereauvirement}">
+<div class="form-group">
+<label class="control-label">ID:</label>
+<input type="text" th:field="*{id}" class="form-control" readonly="readonly"/>
+<span ></span>
+</div>
+<div class="form-group">
+<label class="control-label">NUM BV:</label>
+<input type="text" th:field="*{numCQ}" class="form-control" readonly="readonly"/>
+<span ></span>
+</div>
+<div class="form-group">
+<label class="control-label">NUM CBV:</label>
+<input type="text" th:field="*{numCBV}" class="form-control"/>
+<span ></span>
+</div>
+
+<div  class="form-group">
+<label class="control-label">Choisissez le statut d'un bordereau de virement:</label>
+<select name="statcq" id="cq" th:field="*{statCQ}" class="form-control">
+    <option value="cree">Crée</option>
+     <option value="emis">Emis</option>
+     <option value="imprime">Imprimé</option>
+     <option value="paye">Payé</option>
+     <option value="meo">Mise en opposition</option>
+</select>
+</div>
+<div class="form-group">
+<label class="control-label">NUM CARNET CHEQUE:</label>
+<input type="text" th:field="*{numCC}" class="form-control"/>
+<span ></span>
+</div>
+<div>
+<button type="submit" class="btn btn-primary">Enregistrer</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

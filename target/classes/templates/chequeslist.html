@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="index">
+
+
+<body>
+
+
+<script th:src="@{script/achat.js}" type="text/javascript"></script>
+<div class="container-fluid"  layout:fragment="content">
+
+<p> how are you !</p>
+<table class="table table-striped"  >
+<thead>
+<tr><th>ID</th><th>NUMCHEQUE</th><th>STATUT</th><th>NUM CC</th></tr>
+</thead>
+<tbody>
+<tr th:each="c:${cheque}">
+<td th:text="${c.id}">
+<td th:text="${c.numCQ}"></td><td th:text="${c.statCQ}"></td><td th:text="${c.numCC}"></td>
+<td>
+<!-- Button trigger modal -->
+<a th:href="@{/listcheque/takedata(idc=${c.numCC},idch=${c.id})}" class="btn btn-primary"  >
+
+
+  Launch demo modal
+</a>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</body>
+</html>
+
+  

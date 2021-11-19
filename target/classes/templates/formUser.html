@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"/>
+
+<head>
+<meta charset="utf-8"/>
+<title>Saisie d'un utilisateur</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+
+</head>
+<body class="bak">
+<div class="col-md-6 col-xs-12 spacer col-md-offset-3">
+<div class="panel panel-default">
+<div class="panel-heading">Saisie d'un utilisateur</div>
+<div class="panel-body">
+<form th:action="@{saveUser}" method="post" th:object="${user}">
+<div class="form-group">
+<label class="control-label">Numero du l'employé:</label>
+<input type="text" th:field="*{codeEmp}" class="form-control" />
+<span></span>
+</div>
+<div class="form-group">
+<label class="control-label">Nom:</label>
+<input type="text" th:field="*{firstName}" class="form-control" />
+<span></span>
+</div>
+<div class="form-group">
+<label class="control-label">Prénom:</label>
+<input type="text" th:field="*{lastName}" class="form-control"/>
+<span ></span>
+</div>
+<div class="form-group">
+<label class="control-label">Password:</label>
+<input type="text" th:field="*{password}" class="form-control" required="true"/>
+<span ></span>
+</div>
+<div class="form-group">
+<label class="control-label">Username:</label>
+<input type="text" th:field="*{username}" class="form-control" required="true"/>
+<span></span>
+</div>
+<div class="form-group">
+<label class="control-label">Role_Id:</label>
+<input type="text" th:field="*{role}" class="form-control" required="true"/>
+<span></span>
+</div>
+<div>
+<button type="submit" class="btn btn-primary">Enregistrer</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

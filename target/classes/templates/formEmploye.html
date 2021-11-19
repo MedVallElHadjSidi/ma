@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"/>
+<head>
+<meta charset="utf-8"/>
+<title>Saisie d'un employé</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="col-md-6 col-xs-12 spacer col-md-offset-3">
+<div class="panel panel-default">
+<div class="panel-heading">Saisie d'un employé</div>
+<div class="panel-body">
+<form th:action="@{SaveEmploye}" method="post" th:object="${employe}">
+<div class="form-group">
+<label class="control-label">NOMEmp:</label>
+<input type="text" th:field="*{nomEmp}" class="form-control"/>
+<span th:errors="*{nomEmp}"></span>
+</div>
+<div class="form-group">
+<label class="control-label">CODEmp:</label>
+<input type="text" th:field="*{codeEmp}" class="form-control"/>
+<span></span>
+</div>
+<div>
+<button type="submit" class="btn btn-primary">Enregistrer</button>
+</div>
+</form>
+</div>
+</div>
+</div>>
+</body>
+</html>

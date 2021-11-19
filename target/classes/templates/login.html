@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title Page-->
+    <title>BCM - Login</title>
+
+    <!-- Fontfaces CSS-->
+    <link th:href="@{/style/font-face.css}" rel="stylesheet">
+    <link th:href="@{vendor/font-awesome-4.7/css/font-awesome.min.css} " rel="stylesheet" media="all">
+    <link th:href="@{vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link th:href="@{vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+    <!-- @{Vendor CSS-->
+    <link th:href="@{vendor/animsition/animsition.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet"
+          media="all">
+    <link th:href="@{vendor/wow/animate.css}" rel="stylesheet" media="all">
+    <link th:href="@{vendor/css-hamburgers/hamburgers.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{vendor/slick/slick.css}" rel="stylesheet" media="all">
+    <link th:href="@{vendor/select2/select2.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{vendor/perfect-scrollbar/perfect-scrollbar.css}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link th:href="@{style/theme.css}" rel="stylesheet" media="all">
+
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <div class="page-content--bge5">
+        <div class="container">
+            <div class="login-wrap">
+                <div class="login-content">
+                    <div class="login-logo">
+                        <a href="./">
+                            <span class="h2 text-dark">Gestion Des Chèques </span>
+                        </a>
+                    </div>
+                    <div class="login-form">
+                        <form th:action="@{/login}" method="POST" >
+                         
+                            <div class="form-group">
+
+                                <label>Useename </label>
+                                <input class="au-input au-input--full" type="text"  name="username"
+                                       placeholder="username">
+                            </div>
+                            <div class="form-group">
+                                <label>Mot de passe </label>
+                                <input class="au-input au-input--full" type="password"  name="password"
+                                       placeholder="Password">
+                            </div>
+
+                            <div class="login-checkbox float-left">
+                         
+                              
+                                 
+                            </div>
+                            <button  name="btn_submit" class="btn au-btn--block btn-outline-success"
+                                    type="submit">Connexion
+                            </button>
+                          
+                            <!-- <div class="login-checkbox float-right">
+                                    <label>
+                                        <a href="#">Mot de passe oublié?</a>
+                                    </label>
+                                </div>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Jquery JS-->
+<script th:src="@{vendor/jquery-3.2.1.min.js}"></script>
+<!-- Bootstrap JS-->
+<script th:src="@{vendor/bootstrap-4.1/popper.min.js}"></script>
+<script th:src=" @{vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+<!-- @{Vendor JS       -->
+<script th:src="@{vendor/slick/slick.min.js}">
+</script>
+<script th:src=" @{vendor/wow/wow.min.js}"></script>
+<script th:src="@{vendor/animsition/animsition.min.js}"></script>
+<script th:src="@{vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}">
+</script>
+
+
+<!-- Main JS-->
+<script th:src="@{js/main.js}"></script>
+<!-- <script th:src="@{script/main.js}" type="text/javascript"></script> -->
+</body>
+
+</html>
+<!-- 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+
+<body class="bak">
+	<div class="container" >
+	<br/><br/>
+	<div class="col-md-6 col-xs-12 spacer col-md-offset-3">
+    <div class="panel panel-default">
+    <div class="panel-heading">LOGIN PAGE</div>
+    <div class="panel-body">
+		<form th:action="@{/login}" method="POST" class="form-signin" style="width:30%;margin:auto">
+			
+			<br/>
+			 <div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Username or password is invalid</p>
+			</div>
+			
+			<input type="text" id="username" name="username"  th:placeholder="Username"
+				class="form-control" /> <br/> 
+			<input type="password"  th:placeholder="Password"
+				id="password" name="password" class="form-control" /> <br />
+				
+			
+			<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+		</form>
+		</div>
+		</div>
+		</div>
+	</div>
+</body>
+</html> -->

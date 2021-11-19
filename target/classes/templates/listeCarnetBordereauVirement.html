@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Liste des carnets de cheque</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<div class="container spacer">
+<a type="button" class="btn btn-warning" th:href="@{/gestionBordereauVirement}">Gestion des bordereaux de virement</a>
+</div>
+<body>
+<div class="container spacer">
+<table class="table table-striped">
+<thead>
+<tr><th>NUMCBV</th><th>STATUT</th><th>DATECRE</th><th>NUMCLI</th><th>CODEEMP</th><th>ACTIONS</th></tr>
+</thead>
+<tbody>
+<tr th:each="cbv:${carnetbordereauvirement}">
+<td th:text="${cbv.numCBV}"></td><td th:text="${cbv.statCBV}"></td>
+<td th:text="${cbv.dateCre}"></td><td th:text="${cbv.numCli}"></td><td th:text="${cbv.codeEmp}"></td>
+<td><a type="button" class="btn btn-success" th:href="@{'/carnetbordereauvirements/edit/'+${cbv.numCBV}}">Editer</a>
+<a type="button" class="btn btn-danger" th:href="@{'/carnetbordereauvirements/delete/'+${cbv.numCBV}}">Supprimer</a>
+<a type="button" class="btn btn-primary" th:href="@{'/carnetbordereauvirements/listbordereauvirement/'+${cbv.numCBV}}">Detail</a>
+<a type="button" class="btn btn-primary" th:href="@{'/carnetbordereauvirements/imprimer/'+${cbv.numCBV}}">Imprimer</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

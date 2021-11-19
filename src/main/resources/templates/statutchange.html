@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Change a status</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+<script type="text/javascript">
+document.getElementById("exampleModal").ariaHidden = "false";  
+document.getElementById("exampleModal").style.visibility="visible";  
+
+</script>
+ 
+</head>
+<body>
+<div class="container spacer">
+
+<!--    <button type="button" class="btn btn-primary" th:data-toggle="${modal}" th:data-target="${exampleModal}" > 
+  Launch demo modal 
+ </button>   
+ -->
+
+<!-- Modal -->
+<div class="modal fade show" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+   <!--      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+           <form th:action="@{chequeedit}" method="post">
+    
+      <div class="modal-body">
+ 
+      <div class="col-sm-12 mb-2">
+      
+                        <label for="nom">Choisissez le statut du cheque : </label>
+                       <select name="statut"  class="form-control" id="statut" >
+						    <option value="Payer">Payer</option>
+						    <option value="Mise en opposition">Mise en opposition</option>
+					   </select>
+                    </div>
+                       <div class="col-sm-12 mb-2"  >
+                        <label for="nom">Id Carnet : </label>
+                        <input class="form-control" type="text" name="idcarnet" th:value="${id}" >
+                    </div>
+                        <div class="col-sm-12 mb-2" >
+                        <label for="nom">Id cheque : </label>
+                        <input class="form-control" type="text"   name="idcheque" th:value="${idch}" >
+                    </div>
+                  
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" type="submit">Save changes</button>
+      </div>
+          </form>
+    </div>
+  </div>
+</div>
+
+
+</div>
+ 	<script th:src="@{/ma/jquery-3.2.1.slim.min.js}"></script>
+			<script th:src="@{/ma/popper.min.js}"></script>
+			<script th:src="@{/ma/bootstrap.min.js}"></script>
+</body>
+</html>

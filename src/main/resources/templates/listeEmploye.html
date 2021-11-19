@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Liste des employés</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<div class="container spacer">
+<a type="button" class="btn btn-warning" th:href="@{formemploye}">Ajout d'un employé</a>
+</div>
+<body>
+<div class="container spacer">
+<table class="table table-striped">
+<thead>
+<tr><th>ID</th><th>NOM</th><th>CODE</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<tr th:each="e:${employes}">
+<td th:text="${e.id}"></td><td th:text="${e.nomEmp}"></td><td th:text="${e.codeEmp}"><td><a type="button" class="btn btn-success" th:href="@{'/employes/edit/'+${e.id}}">Editer</a>
+<a type="button" class="btn btn-danger" th:href="@{'/employes/delete/'+${e.id}}">Supprimer</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

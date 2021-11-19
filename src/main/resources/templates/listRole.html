@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Liste des roles</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container spacer">
+<a th:href="@{/gestionRole}" type="button" class="btn btn-warning">Gestion des roles</a>
+<table class="table table-striped">
+<thead>
+<tr><th>ID</th><th>ROLE</th><th>DETAIL</th></tr>
+</thead>
+<tbody>
+<tr th:each="r:${roles}">
+<td th:text="${r.id}"></td><td th:text="${r.roleName}"></td><td>
+<a type="button" class="btn btn-success" th:href="@{'/roles/edit/'+${r.id}}">Editer</a>
+<a type="button" class="btn btn-danger" th:href="@{'/roles/delete/'+${r.id}}">Supprimer</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

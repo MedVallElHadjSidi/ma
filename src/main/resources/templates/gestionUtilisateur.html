@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="index">
+
+<body>
+
+
+
+<div class="container-fluid"  layout:fragment="content">
+    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Erreur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Impossible de supprimer ce Achat</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card bg-white">
+        <div class="card-header card-color">
+            <p class="h2 text-center text-uppercase font-weight-bold pt-2">Gestion des Utilisateur </p>
+        </div>
+         <div class="card-body container-fluid">
+         <div align="right" class="col">
+                        <a type="button" class="btn btn-success mt-3 mb-3" th:href="@{'/gestionRole'}">gestion de Role</a>
+                    </div>
+        <form th:action="@{saveUser}" method="post" >
+
+                <div class="row">
+                 <div class="col-sm-3 mb-2">
+                        <label for="nom">Numero du l'employé : </label>
+                        <input name="numCpte" class="form-control" type="number" id="codeEmp" required>
+                    </div> 
+                     <div class="col-sm-3 mb-2">
+                        <label for="nom">Nom : </label>
+                         <input name="numCpte" class="form-control" type="number" id="firstName" required>
+                    </div>
+                  <div class="col-sm-3 mb-2">
+                        <label for="code">Prénom : </label>
+						 <input name="numCpte" class="form-control" type="number" id="lastName" required>
+                    </div> 
+                     
+                  </div>
+                  <div class="row">
+                 
+                     <div class="col-sm-3 mb-2">
+                        <label for="nom">UserName : </label>
+                         <input name="numCpte" class="form-control" type="number" id="username" required>
+                    </div>
+                    <div class="col-sm-3 mb-2">
+                        <label for="code">Password : </label>
+						 <input name="numCpte" class="form-control" type="number" id="password" required>
+                    </div> 
+                  <div class="col-sm-3 mb-2">
+                        <label for="code">Role_Name : </label>
+						<select class="custom-select" name="roleName" >
+						  <option value=""  hidden="hidden"></option>
+						        <option  th:each="sm:${roles}"  th:text="${sm.roleName}"  required="required" th:value="${sm.roleName}"  name="roleName"></option>
+						
+						</select>
+                    </div> 
+                     
+                  </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-success mt-3 mb-3" id="btn">Ajouter</button>
+                    </div>
+                </div>
+                </form>
+                 <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table id="tachat" class="table table-bordered table-striped mb-0">
+                        <thead>
+                     <tr><th>ID</th><th>CODEEMP</th><th>EMAIL</th><th>NOM</th><th>PRENOM</th><th>USERNAME</th><th>ROLE_ID</th><th>ACTIONS</th></tr>
+                        </thead>
+                        <tbody id="table-content">
+						  <tr th:each="u:${users}">
+							<td th:text="${u.id}"></td><td th:text="${u.codeEmp}"></td>
+							<td th:text="${u.email}"></td><td th:text="${u.firstName}"></td><td th:text="${u.lastName}"></td>
+							<td th:text="${u.username}"></td><td th:text="${u.role}"></td>
+							<td><a type="button" class="btn btn-success" th:href="@{'/users/edit/'+${u.id}}">Editer</a>
+							<a type="button" class="btn btn-danger" th:href="@{'/users/delete/'+${u.id}}">Supprimer</a></td>
+						  </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+
+</body>
+</html>

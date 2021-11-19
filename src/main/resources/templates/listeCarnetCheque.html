@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="index">
+<head>
+<meta charset="utf-8"/>
+<title>Liste des carnets de cheque</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<div class="container spacer">
+<a type="button" class="btn btn-warning" th:href="@{/gestionCheque}">Gestion des cheques</a>
+</div>
+<body>
+<div class="container spacer" layout:fragment="content">
+<table class="table table-striped">
+<thead>
+<tr><th>NUMCC</th><th>STATUT</th><th>DATECRE</th><th>NUMCLI</th><th>NUMEMP</th><th>ACTIONS</th></tr>
+</thead>
+<tbody>
+<tr th:each="cc:${carnetcheque}">
+<td th:text="${cc.numCC}"></td><td th:text="${cc.statCC}"></td>
+<td th:text="${cc.dateCre}"></td><td th:text="${cc.numCli}"></td><td th:text="${cc.codeEmp}"></td>
+<td><a type="button" class="btn btn-success" th:href="@{'/carnetcheques/edit/'+${cc.numCC}}">Editer</a>
+<a type="button" class="btn btn-danger" th:href="@{'/carnetcheques/delete/'+${cc.numCC}}">Supprimer</a>
+<a type="button" class="btn btn-primary" th:href="@{'/carnetcheques/listcheque/'+${cc.numCC}}">Detail</a>
+<a type="button" class="btn btn-primary" th:href="@{'/carnetcheques/imprimer/'+${cc.numCC}}">Imprimer</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
