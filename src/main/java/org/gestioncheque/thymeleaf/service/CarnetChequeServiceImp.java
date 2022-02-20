@@ -1,6 +1,8 @@
 package org.gestioncheque.thymeleaf.service;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -10,6 +12,8 @@ import org.gestioncheque.thymeleaf.model.Compte;
 import org.gestioncheque.thymeleaf.model.CompteCheque;
 import org.gestioncheque.thymeleaf.repository.CarnetChequeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -31,10 +35,11 @@ public class CarnetChequeServiceImp implements CarnetChequeService{
 	
 	@Autowired
 	UserService userService;
+	
 	@Override
-	public List<CarnetCheque> listeCarnetCheque() {
+	public Page<CarnetCheque> listeCarnetCheque(int page) {
 		// TODO Auto-generated method stub
-		return carnetchequerepository.findAll();
+		 return carnetchequerepository.findAll(PageRequest.of(page,5));
 	}
 
 	@Override
@@ -48,14 +53,17 @@ public class CarnetChequeServiceImp implements CarnetChequeService{
 		//ccq.setListeCheques(listeCheques);
 		// recuperer la personne connectée pour avoir son num employé
 		
-		 String usernameCode =userService.findByUserName(getUserCode()).getCodeEmp() ;
-		
-		
-		System.out.print("test user connected : "+ usernameCode);	
+//		 String usernameCode =userService.findByUserName(getUserCode()).getCodeEmp() ;
+//		
+//		
+//		System.out.print("test user connected : "+ usernameCode);	
 		//long IdCarnetCheque = getMaxId()+ccq.getNbreCQ()+1;
 		// String lastNumcq=getlastnumcq(ccq.getNumCli());
 		 ccq.setStatCC("Cree");
-		 ccq.setCodeEmp(usernameCode);
+		Date d1 = new Date();
+		ccq.setDateCre(d1);
+//		 ccq.setCodeEmp(usernameCode);
+		
 		 carnetchequerepository.save(ccq);
 		
 		 long lastSec=getmaxsequence(ccq.getNumCli());
@@ -146,7 +154,12 @@ public class CarnetChequeServiceImp implements CarnetChequeService{
 	@Override
 	public List<Cheque> listecheque(long keyword) {
 		// TODO Auto-generated method stub
-		return carnetchequerepository.listecheque(keyword);
+		return carnetchequerepository.listcheque(keyword);
+	}
+	@Override
+	public Page<Cheque> listecheques(long id,int page) {
+		// TODO Auto-generated method stub
+		return carnetchequerepository.listcheques(id,PageRequest.of(page,7));
 	}
 
 	@Override

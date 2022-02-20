@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.gestioncheque.thymeleaf.model.Role;
+import org.springframework.data.domain.Page;
 
 
 
 public interface RoleService {
-	public List<Role> listeRole();
+	public Page<Role> listeRole(int pageable);
 	public void addRole(Role role);
 	public void delete(Integer id);
 	public Optional<Role> get(Integer id);

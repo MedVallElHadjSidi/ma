@@ -7,6 +7,7 @@ import org.gestioncheque.thymeleaf.model.Role;
 import org.gestioncheque.thymeleaf.model.User;
 import org.gestioncheque.thymeleaf.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -23,9 +25,15 @@ public class RoleController {
 	
 	//@Secured(value={"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/gestionRole")
-	public String getlistuser(Model model){
-		List<Role> listerole=roleService.listeRole();
-		model.addAttribute("roles",listerole);
+	public String getlistuser(Model model,@RequestParam(name = "page",defaultValue = "0") int page){
+		Page<Role> listerole=roleService.listeRole(page);
+		int nbrepage = new int[listerole.getTotalPages()].length;
+
+		model.addAttribute("pages",new int[listerole.getTotalPages()]);
+		model.addAttribute("pageactuel",page);
+		model.addAttribute("nbrepage",nbrepage);
+		model.addAttribute("roles",listerole.getContent());
+		
 		return "gestionRole";
 	}
 

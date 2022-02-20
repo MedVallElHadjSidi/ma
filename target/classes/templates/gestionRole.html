@@ -3,7 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="index">
 
-
+ <head>
+      <meta charset="UTF-8">
+      </head>
 <body>
 
 
@@ -29,7 +31,7 @@
         <div class="card-header card-color">
             <p class="h2 text-center text-uppercase font-weight-bold pt-2">Gestion des Roles </p>
         </div>
-         <div class="card-body container-fluid">
+         <div class="card-body container-fluid mb-5">
         <form th:action="@{saveRole}" method="post" >
     
                 <div class="row">
@@ -42,11 +44,11 @@
                   </div>
                 <div class="row">
                     <div class="col">
-                       <button type="submit" class="btn btn-outline-success mt-3 mb-3">Ajouter</button>
+                       <button type="submit" class="btn btn-outline-success  mb-3">Ajouter</button>
                     </div>
                 </div>
                 </form>
-                 <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                 <div class="">
                     <table id="tachat" class="table table-bordered table-striped mb-0">
                         <thead>
 <tr><th>ID</th><th>ROLE</th><th>DETAIL</th></tr>
@@ -59,6 +61,28 @@
 </tr>
 </tbody>
                     </table>
+                    <div class="mt-3">
+                             <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" th:if="${pageactuel}>0">
+      <a class="page-link" th:href="@{/gestionRole(page=${pageactuel-1})}"aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li th:class="${pageactuel==status.index}?'page-item active':'page-item'" th:each="page,status:${pages}">
+    <a th:href="@{/gestionRole(page=${status.index})}" th:text="${status.index+1}" class="page-link"></a>
+    </li>
+
+    <li class="page-item" th:if="${pageactuel}+1 < ${nbrepage}">
+      <a class="page-link" th:href="@{/gestionRole(page=${pageactuel+1})}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+                             </div>
                 </div>
             </div>
         

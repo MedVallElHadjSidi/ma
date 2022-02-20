@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.gestioncheque.thymeleaf.model.Role;
 import org.gestioncheque.thymeleaf.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImp implements RoleService{
@@ -13,9 +15,9 @@ public class RoleServiceImp implements RoleService{
 	  @Autowired RoleRepository roleRepository;
 
 	@Override
-	public List<Role> listeRole() {
+	public Page<Role> listeRole(int page) {
 		// TODO Auto-generated method stub
-		return roleRepository.findAll();
+		return roleRepository.findAll(PageRequest.of(page,5));
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.gestioncheque.thymeleaf.model.User;
 import org.gestioncheque.thymeleaf.repository.RoleRepository;
 import org.gestioncheque.thymeleaf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -27,12 +29,19 @@ public class UserController {
 	RoleRepository roleRepository;
 	//@Secured(value={"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/gestionUtilisateur")
-	public String getlistuser(Model model){
+	public String getlistuser(Model model,@RequestParam(name = "page",defaultValue = "0") int page){
 		
 		List<Role> roles = roleRepository.findAll();
 		model.addAttribute("roles", roles);
-		List<User> listeUser=userService.listeUser();
-		model.addAttribute("users",listeUser);
+		Page<User> listeUser=userService.listeUser(page);
+		int nbrepage = new int[listeUser.getTotalPages()].length;
+
+		model.addAttribute("pages",new int[listeUser.getTotalPages()]);
+		model.addAttribute("pageactuel",page);
+		model.addAttribute("nbrepage",nbrepage);
+		model.addAttribute("users",listeUser.getContent());
+		
+		
 		return "gestionUtilisateur";
 	}
 	

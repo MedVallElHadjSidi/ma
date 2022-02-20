@@ -5,6 +5,7 @@ import java.util.List;
 import org.gestioncheque.thymeleaf.form.EditCheque;
 import org.gestioncheque.thymeleaf.model.BordereauVirement;
 import org.gestioncheque.thymeleaf.model.CarnetBordereauVirement;
+import org.gestioncheque.thymeleaf.model.CarnetCheque;
 import org.gestioncheque.thymeleaf.model.Compte;
 import org.gestioncheque.thymeleaf.repository.BordereauVirementRepository;
 import org.gestioncheque.thymeleaf.repository.CompteRepository;
@@ -13,6 +14,7 @@ import org.gestioncheque.thymeleaf.service.CarnetBordereauVirementReportService;
 import org.gestioncheque.thymeleaf.service.CarnetBordereauVirementService;
 import org.gestioncheque.thymeleaf.service.CompteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -48,14 +50,20 @@ public class CarnetBordereauVirementController {
 	}
 	//@Secured(value={"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/gestionBordereauVirement")
-	public String getlistcarnetbordereauvirement(Model model) {
+	public String getlistcarnetbordereauvirement(Model model,@RequestParam(name = "page",defaultValue = "0") int page) {
 		
 		List<Compte> comptes = compteRepository.findAll();
 		model.addAttribute("comptes", comptes);
 		
-		List<CarnetBordereauVirement> listeCBV=carnetbordereauvirementservice.listeCarnetBordereauVirement();
+		Page<CarnetBordereauVirement> listeCBV=carnetbordereauvirementservice.listeCarnetBordereauVirement(page);
+		int nbrepage = new int[listeCBV.getTotalPages()].length;
 		
-		model.addAttribute("carnetbordereauvirement",listeCBV);
+		model.addAttribute("pages",new int[listeCBV.getTotalPages()]);
+		model.addAttribute("pageactuel",page);
+		model.addAttribute("nbrepage",nbrepage);
+		
+		model.addAttribute("carnetbordereauvirement",listeCBV.getContent());
+		
 		
 		return "GestionBordereauVirementMenu";
 	}
@@ -84,9 +92,16 @@ public class CarnetBordereauVirementController {
 	}
 	//@Secured(value={"ROLE_ADMIN","ROLE_USER"})
 	@RequestMapping("/listbordereauvirement/{id}")
-	public String listeBV(Model model,@PathVariable(name="id") long id) {
-		List<BordereauVirement> listebv=carnetbordereauvirementservice.listebv(id);
-		model.addAttribute("bordereauvirement",listebv);
+	public String listeBV(Model model,@PathVariable(name="id") long id,@RequestParam(name = "page",defaultValue = "0") int page) {
+		Page<BordereauVirement> listebv=carnetbordereauvirementservice.listebvs(id,page);
+		
+      int nbrepage = new int[listebv.getTotalPages()].length;
+		
+		model.addAttribute("pages",new int[listebv.getTotalPages()]);
+		model.addAttribute("pageactuel",page);
+		model.addAttribute("nbrepage",nbrepage);
+		
+		model.addAttribute("bordereauvirement",listebv.getContent());
 		return "listeBordereauVirement";
 	}
 	//@Secured(value={"ROLE_ADMIN"})

@@ -1,27 +1,27 @@
 function show(page) {
-	if (page == 'produit') {
+	if (page == 'comptes') {
 		$('a').removeClass('active');
-		$('a:contains(Produit)').addClass('active');
-		$("#main-content").load("produits");
+		$('a:contains(comptes)').addClass('active');
+		 $("#main-content").load("GestionCompteMenu");
 		event.preventDefault();
 	}
-	if (page == 'client') {
+	if (page == 'Cheques') {
 		console.log('active')
 		$('a').removeClass('active');
-		$('a:contains(Clients)').addClass('active');
-		$("#main-content").load("clients");
+		$('a:contains(Cheques)').addClass('active');
+		// $("#main-content").load("Chequess");
 		event.preventDefault();
 	}
-	if (page == 'fournisseur') {
+	if (page == 'BordereauVirement') {
 		$('a').removeClass('active');
-		$('a:contains(Fournisseurs)').addClass('active');
-		$("#main-content").load("fournisseurs");
+		$('a:contains(BordereauVirement)').addClass('active');
+		// $("#main-content").load("BordereauVirements");
 		event.preventDefault();
 	}
-		if (page == 'achat') {
+		if (page == 'Utilisateurs') {
 		$('a').removeClass('active');
-		$('a:contains(Achats)').addClass('active');
-		$("#main-content").load("achats");
+		$('a:contains(Utilisateurs)').addClass('active');
+		// $("#main-content").load("Utilisateurs");
 		event.preventDefault();
 	}
 	if (page == "statistiques") {

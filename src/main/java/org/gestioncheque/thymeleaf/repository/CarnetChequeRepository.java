@@ -6,6 +6,8 @@ import org.gestioncheque.thymeleaf.model.CarnetCheque;
 import org.gestioncheque.thymeleaf.model.Cheque;
 import org.gestioncheque.thymeleaf.model.Compte;
 import org.gestioncheque.thymeleaf.model.CompteCheque;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +22,9 @@ public interface CarnetChequeRepository extends JpaRepository<CarnetCheque, Long
 	public Long getMaxId();
 	
 	@Query("select c from Cheque c,CarnetCheque cc where cc.numCC=c.numCC and cc.numCC = :keyword")
-	public List<Cheque> listecheque(@Param("keyword") Long keyword );
+	public List<Cheque> listcheque(@Param("keyword") Long keyword );
+	@Query("select c from Cheque c,CarnetCheque cc where cc.numCC=c.numCC and cc.numCC = :keyword")
+	public Page<Cheque> listcheques(@Param("keyword") Long keyword,@Param("keyword") PageRequest pageRequest );
 	
 	@Query("select Max(cq.id) FROM CarnetCheque cc , Compte cp , Cheque  cq WHERE  cc.numCli=cp.numCli and cq.numCC=cc.numCC and cp.numCli= :keyword")
 	public Long getlastnumcq(@Param("keyword") Long keyword);

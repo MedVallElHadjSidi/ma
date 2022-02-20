@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.gestioncheque.thymeleaf.model.User;
 import org.gestioncheque.thymeleaf.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,9 +46,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> listeUser() {
+	public Page<User> listeUser(int page) {
 		// TODO Auto-generated method stub
-		return userRepository.findAll();
+		return userRepository.findAll(PageRequest.of(page,4));
 	}
 
 	@Override

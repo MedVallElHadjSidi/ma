@@ -11,26 +11,26 @@
 			<meta charset="utf-8">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<link rel='stylesheet' th:href="@{vendor/bootstrap-4.1/bootstrap.min.css}">
-			<link rel='stylesheet' th:href="@{vendor/font-awesome-5/css/fontawesome-all.min.css}">
-			<link th:href="@{vendor/mdi-font/css/material-design-iconic-font.min.css}"
+			<link rel='stylesheet' th:href="@{../vendor/bootstrap-4.1/bootstrap.min.css}">
+			<link rel='stylesheet' th:href="@{../vendor/font-awesome-5/css/fontawesome-all.min.css}">
+			<link th:href="@{../vendor/mdi-font/css/material-design-iconic-font.min.css}"
 				  rel="stylesheet" media="all">
-			<link th:href="@{vendor/datatable/dataTables.bootstrap4.min.css}"
+			<link th:href="@{../vendor/datatable/dataTables.bootstrap4.min.css}"
 				  rel="stylesheet" media="all">
 		
-			<link rel="stylesheet" th:href="@{style/style.css}">
-			<link rel="stylesheet" th:href="@{style/theme.css}">
-			<link th:href="@{vendor/css-hamburgers/hamburgers.min.css}" rel="stylesheet"
+			<link rel="stylesheet" th:href="@{../style/style.css}">
+			<link rel="stylesheet" th:href="@{../style/theme.css}">
+			<link th:href="@{../vendor/css-hamburgers/hamburgers.min.css}" rel="stylesheet"
 				  media="all">
 		
-			<link rel="stylesheet" th:href="@{style/main.css}">
+			<link rel="stylesheet" th:href="@{../style/main.css}">
 		
-			<script th:src="@{/vendor/jquery-3.2.1.min.js}"></script>
-			<script th:src="@{vendor/bootstrap-4.1/popper.min.js}"></script>
-			<script th:src="@{vendor/bootstrap-4.1/bootstrap.min.js}"></script>
-			<script th:src="@{vendor/datatable/jquery.dataTables.min.js}"
+			<script th:src="@{../vendor/jquery-3.2.1.min.js}"></script>
+			<script th:src="@{../vendor/bootstrap-4.1/popper.min.js}"></script>
+			<script th:src="@{../vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+			<script th:src="@{../vendor/datatable/jquery.dataTables.min.js}"
 					></script>
-			<script th:src="@{vendor/datatable/dataTables.bootstrap4.min.js}"
+			<script th:src="@{../vendor/datatable/dataTables.bootstrap4.min.js}"
 					></script>
 			<script th:src="@{vendor/chartjs/Chart.min.js}"></script>
 		
@@ -50,7 +50,7 @@
 					</div>
 					<div class="sidebar-header">
 						<div class="user-pic">
-							<img class="img-responsive img-rounded" th:src="@{img/no-photo.png}"
+							<img class="img-responsive img-rounded" th:src="@{../img/no-photo.png}"
 								 alt="User picture">
 						</div>
 						<div class="user-info">
@@ -84,32 +84,32 @@
 				</div>
 				<!-- sidebar-content  -->
 				<div class="sidebar-footer">
-					<a th:href="@{/logout}"> <i class="fa fa-power-off"></i> <span>Déconnexion</span>
+					<a th:href="@{/}"> <i class="fa fa-power-off"></i> <span>Déconnexion</span>
 					</a>
 				</div>
 			</nav>
 			<!-- sidebar-wrapper  -->
 			<main class="page-content">
-				<div  class="container-fluid" layout:fragment="content" style="margin-left: -30px"> 
+				<div  class="container-fluid" layout:fragment="child" style="margin-left: -30px"> 
 		
 				</div>
 			</main>
 			<!-- page-content" -->
 		</div>
 		<!-- page-wrapper -->
-		<script th:src="@{script/redirect.js}"></script>
-		<script th:src="@{vendor/slick/slick.min.js}"></script>
-		<script th:src="@{vendor/wow/wow.min.js}"></script>
-		<script th:src="@{vendor/animsition/animsition.min.js}"></script>
-		<script th:src="@{vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
-		<script th:src="@{vendor/counter-up/jquery.waypoints.min.js}"></script>
-		<script th:src="@{vendor/counter-up/jquery.counterup.min.js}"></script>
-		<script th:src="@{vendor/circle-progress/circle-progress.min.js}"></script>
-		<script th:src="@{vendor/perfect-scrollbar/perfect-scrollbar.js}"></script>
-		<script th:src="@{vendor/chartjs/Chart.bundle.min.js}"></script>
-		<script th:src="@{vendor/select2/select2.min.js}"></script>
-		<script th:src="@{script/index.js}"></script>
-		<script th:src="@{js/main.js}"></script>
+		<script th:src="@{../script/redirect.js}"></script>
+		<script th:src="@{../vendor/slick/slick.min.js}"></script>
+		<script th:src="@{../vendor/wow/wow.min.js}"></script>
+		<script th:src="@{../vendor/animsition/animsition.min.js}"></script>
+		<script th:src="@{../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+		<script th:src="@{../vendor/counter-up/jquery.waypoints.min.js}"></script>
+		<script th:src="@{../vendor/counter-up/jquery.counterup.min.js}"></script>
+		<script th:src="@{../vendor/circle-progress/circle-progress.min.js}"></script>
+		<script th:src="@{../vendor/perfect-scrollbar/perfect-scrollbar.js}"></script>
+		<script th:src="@{../vendor/chartjs/Chart.bundle.min.js}"></script>
+		<script th:src="@{../vendor/select2/select2.min.js}"></script>
+		<script th:src="@{../script/index.js}"></script>
+		<script th:src="@{../js/main.js}"></script>
 		</body>
 		</html>
 		

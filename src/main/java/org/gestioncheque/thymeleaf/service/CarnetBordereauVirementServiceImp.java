@@ -6,10 +6,13 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.gestioncheque.thymeleaf.model.BordereauVirement;
 import org.gestioncheque.thymeleaf.model.CarnetBordereauVirement;
+import org.gestioncheque.thymeleaf.model.CarnetCheque;
 import org.gestioncheque.thymeleaf.model.Compte;
 import org.gestioncheque.thymeleaf.model.CompteBordereauVirement;
 import org.gestioncheque.thymeleaf.repository.CarnetBordereauVirementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,11 +30,17 @@ public class CarnetBordereauVirementServiceImp implements CarnetBordereauViremen
 	UserService userService;
 
 	@Override
-	public List<CarnetBordereauVirement> listeCarnetBordereauVirement() {
+	public Page<CarnetBordereauVirement> listeCarnetBordereauVirement(int page) {
 		// TODO Auto-generated method stub
-		return carnetbordereauvirementrepository.findAll();
+		return carnetbordereauvirementrepository.findAll(PageRequest.of(page,5));
 	}
-
+	
+	//pagination liste BVs
+	public Page<BordereauVirement> listebvs(long id,int page) {
+		// TODO Auto-generated method stub
+		return carnetbordereauvirementrepository.listbvs(id,PageRequest.of(page,8));
+	}
+	
 	@Override
 	public void addCarnetBordereauVirement(CarnetBordereauVirement cbv) {
 		// TODO Auto-generated method stub
@@ -91,7 +100,7 @@ if (carnetbordereauvirementrepository.getMaxId()==null) {
 	@Override
 	public List<BordereauVirement> listebv(long keyword) {
 		// TODO Auto-generated method stub
-		return carnetbordereauvirementrepository.listebv(keyword);
+		return carnetbordereauvirementrepository.listbv(keyword);
 	}
 
 	@Override

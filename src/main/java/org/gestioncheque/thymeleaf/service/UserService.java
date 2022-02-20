@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.gestioncheque.thymeleaf.model.User;
+import org.springframework.data.domain.Page;
 
 public interface UserService {
-	public List<User> listeUser();
+	public Page<User> listeUser(int pageble);
 	public void addUser(User user);
 	public void delete(long id);
 	public Optional<User> get(long id);

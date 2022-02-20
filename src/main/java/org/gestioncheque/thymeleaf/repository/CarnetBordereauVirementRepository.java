@@ -6,6 +6,8 @@ import org.gestioncheque.thymeleaf.model.BordereauVirement;
 import org.gestioncheque.thymeleaf.model.CarnetBordereauVirement;
 import org.gestioncheque.thymeleaf.model.Compte;
 import org.gestioncheque.thymeleaf.model.CompteBordereauVirement;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +21,10 @@ public interface CarnetBordereauVirementRepository extends JpaRepository<CarnetB
 			  public Long getMaxId();
 			  
 			  @Query("select bv from BordereauVirement bv , CarnetBordereauVirement cbv where cbv.numCBV=bv.numCBV and  cbv.numCBV= :keyword")
-			  public List<BordereauVirement> listebv(@Param("keyword") Long keyword  );
+			  public List<BordereauVirement> listbv(@Param("keyword") Long keyword  );
+			  //
+			  @Query("select bv from BordereauVirement bv , CarnetBordereauVirement cbv where cbv.numCBV=bv.numCBV and  cbv.numCBV= :keyword")
+			  public Page<BordereauVirement> listbvs(@Param("keyword") Long keyword,@Param("keyword") PageRequest pageRequest  );
 			  
 			  @Query("select Max(bv.id) from CarnetBordereauVirement cbv , Compte cp , BordereauVirement  bv WHERE  cbv.numCli=cp.numCli and cbv.numCBV=bv.numCBV ") 
 			  public Long getlastnumcq(@Param("keyword") Long keyword);
