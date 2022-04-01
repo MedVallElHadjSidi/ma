@@ -42,6 +42,7 @@ public class GestionChequeApplication implements CommandLineRunner {
 		 * userservice.addUser(user);
 		 * 
 		 */
+	
 		 
 	}
 	

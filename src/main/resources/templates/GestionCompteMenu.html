@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="index">
       <head>
       <script>
@@ -51,7 +52,7 @@
             <p class="h2 text-center text-uppercase font-weight-bold pt-2">Gestion des Comptes </p>
         </div>
         <div class="card-body container-fluid">
-        <form th:action="@{SaveCompte}" method="post">
+        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{SaveCompte}" method="post">
     
             
                 <div class="row">
@@ -106,7 +107,7 @@
                             <th scope="col">NUMORG</th>
                             <th scope="col">TYPECLI</th>
                             <th scope="col">NOM</th>
-                            <th scope="col">ACTIONS</th>
+                            <th sec:authorize="hasAuthority('ADMIN')" scope="col">ACTIONS</th>
                         </tr>
                         </thead>
                         <tbody id="table-content">
@@ -116,7 +117,7 @@
 							<td th:if="${c.numOrg}==null">__</td>
 							<td th:if="${c.numOrg}!=null" th:text="${c.numOrg}"></td>
 							<td th:text="${c.typeCli}"></td><td th:text="${c.nom}"></td>
-							<td><a type="button" class="btn btn-success" th:href="@{'/editcpt/'+${c.id}}">Editer</a></button>
+							<td sec:authorize="hasAuthority('ADMIN')"><a type="button" class="btn btn-success" th:href="@{'/editcpt/'+${c.id}}">Editer</a></button>
 							<a type="button" class="btn btn-danger" th:href="@{'/deletecpt/'+${c.id}}">Supprimer</a></td>
 							</tr>
 					  </tbody>

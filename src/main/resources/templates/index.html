@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
- xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 		<head>
 			<meta charset="UTF-8">
@@ -54,10 +54,13 @@
 								 alt="User picture">
 						</div>
 						<div class="user-info">
-								<span class="user-name"> <strong>Admin </strong>
-								</span> <span class="user-role">Admin</span> <span class="user-status">
-									<i class="fa fa-circle"></i> <span>Online</span>
+								<span class="user-name"> 
+								</span> 		  
+								 <span class="user-status">
+								 	<i class="fa fa-circle"></i> <span> <strong>Online </strong></span>
 								</span>
+								
+						
 						</div>
 					</div>
 					<!-- sidebar-header  -->
@@ -73,7 +76,7 @@
 							<li><a th:href="@{/gestionBordereauVirement}" onclick="show('fournisseur')"><i
 									class="zmdi zmdi-hc-1x zmdi-group-work"></i>BordereauVirement</a></li>
 		
-							<li><a th:href="@{/gestionUtilisateur}" onclick="show('achat')"><i
+							<li  sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/gestionUtilisateur}" onclick="show('achat')"><i
 									class="zmdi zmdi-hc-1x zmdi-group-work"></i>Utilisateurs</a></li>
 		
 		

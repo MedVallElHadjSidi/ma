@@ -4,6 +4,8 @@ public class EditCheque {
 	private String idcarnet;
 	private String idcheque;
 	private String statut;
+	private String numerocheque;
+	private int page;
 	public EditCheque(String idcarnet, String idcheque, String statut) {
 		super();
 		this.idcarnet = idcarnet;
@@ -12,6 +14,19 @@ public class EditCheque {
 	}
 	public EditCheque() {
 		super();
+	}
+	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public String getNumerocheque() {
+		return numerocheque;
+	}
+	public void setNumerocheque(String numerocheque) {
+		this.numerocheque = numerocheque;
 	}
 	public String getIdcarnet() {
 		return idcarnet;

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="index">
+     
       <head>
       <meta charset="UTF-8">
       </head>
@@ -34,7 +36,7 @@
         </div>
          <div class="card-body container-fluid mb-3">
          <div >
-              <form th:action="@{SaveCarnetCheque}" method="post" >
+              <form sec:authorize="hasAuthority('ADMIN')" th:action="@{SaveCarnetCheque}" method="post" >
     
            
                 <div class="row">
@@ -75,8 +77,8 @@
                             <td th:text="${#dates.format(cc.dateCre, 'dd-MM-yyyy')}"></td><td th:text="${cc.numCli}"></td><td th:text="${cc.codeEmp}"></td>
                             <td>
                             <a type="button" class="btn btn-primary" th:href="@{/listcheque(id=${cc.numCC},page=${pageactuel})}">Detail</a>
-                            <a type="button" class="btn btn-primary" th:href="@{'/imprimerCC/'+${cc.numCC}}">Imprimer</a>
-                            <a type="button" class="btn btn-danger" th:href="@{'/deleteCC/'+${cc.numCC}}">Supprimer</a>
+                            <a sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-primary" th:href="@{'/imprimerCC/'+${cc.numCC}}">Imprimer</a>
+                            <a  sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-danger" th:href="@{'/deleteCC/'+${cc.numCC}}">Supprimer</a>
                             </td>
                             </tr>
                         </tbody>

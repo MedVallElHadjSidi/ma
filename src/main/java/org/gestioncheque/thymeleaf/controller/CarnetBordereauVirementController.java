@@ -1,5 +1,6 @@
 package org.gestioncheque.thymeleaf.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.gestioncheque.thymeleaf.form.EditCheque;
@@ -8,6 +9,7 @@ import org.gestioncheque.thymeleaf.model.CarnetBordereauVirement;
 import org.gestioncheque.thymeleaf.model.CarnetCheque;
 import org.gestioncheque.thymeleaf.model.Compte;
 import org.gestioncheque.thymeleaf.repository.BordereauVirementRepository;
+import org.gestioncheque.thymeleaf.repository.CarnetBordereauVirementRepository;
 import org.gestioncheque.thymeleaf.repository.CompteRepository;
 import org.gestioncheque.thymeleaf.service.BordereauVirementService;
 import org.gestioncheque.thymeleaf.service.CarnetBordereauVirementReportService;
@@ -42,6 +44,9 @@ public class CarnetBordereauVirementController {
 	CompteRepository compteRepository;
 	@Autowired
 	BordereauVirementRepository bordereauVirementRepository;
+	
+	@Autowired
+	CarnetBordereauVirementRepository carnetBv;
 	
 	//@Secured(value={"ROLE_ADMIN"})
 	@GetMapping("/ajoutercarnetbordereauvirement")
@@ -91,8 +96,8 @@ public class CarnetBordereauVirementController {
 		return "redirect:gestionBordereauVirement";
 	}
 	//@Secured(value={"ROLE_ADMIN","ROLE_USER"})
-	@RequestMapping("/listbordereauvirement/{id}")
-	public String listeBV(Model model,@PathVariable(name="id") long id,@RequestParam(name = "page",defaultValue = "0") int page) {
+	@RequestMapping("/listbordereauvirement")
+	public String listeBV(Model model,@RequestParam(name="id") long id,@RequestParam(name = "page",defaultValue = "0") int page) {
 		Page<BordereauVirement> listebv=carnetbordereauvirementservice.listebvs(id,page);
 		
       int nbrepage = new int[listebv.getTotalPages()].length;
@@ -100,6 +105,7 @@ public class CarnetBordereauVirementController {
 		model.addAttribute("pages",new int[listebv.getTotalPages()]);
 		model.addAttribute("pageactuel",page);
 		model.addAttribute("nbrepage",nbrepage);
+		model.addAttribute("id", id);
 		
 		model.addAttribute("bordereauvirement",listebv.getContent());
 		return "listeBordereauVirement";
@@ -127,6 +133,11 @@ public class CarnetBordereauVirementController {
 	@RequestMapping("/imprimerBV/{id}")
 	public String imprimer(Model model,@PathVariable(name="id") long id) throws Exception {
 		  String generer=carnetBordereauVirementReportservice.generateReport(id);  
+		  CarnetBordereauVirement c = carnetBv.findById(id).get();
+		  c.setStatCBV("imprimer");
+		  Date d= new Date();
+		  c.setDateImp(d);
+		  carnetBv.save(c);
 		  model.addAttribute("generer",generer);
 		  return "report";
 		 
@@ -134,7 +145,7 @@ public class CarnetBordereauVirementController {
 		
 	
 	}
-	@PostMapping("/listbordereauvirement/bvedit")
+	@PostMapping("/bvedit")
 	public String BVStatus(EditCheque e) {
 		System.out.println(e.getStatut());
 		System.out.println(e.getIdcarnet());
@@ -144,12 +155,12 @@ public class CarnetBordereauVirementController {
 		b.setStatBV(e.getStatut());
 		bordereauVirementRepository.save(b);
 		
-		return "redirect:/bordereauvirements/listebordereauvirements";
+		return "redirect:/listbordereauvirement?id="+e.getIdcarnet()+"&page="+e.getPage();
 	}
 	@RequestMapping(value = "/listbordereauvirement/takedata",method = RequestMethod.GET)
 	public String updateEmployer(Model model,@RequestParam(name = "idc") String idcarnet ,@RequestParam(name = "idch")  String idcheque){
 		model.addAttribute("id",idcarnet);
-		model.addAttribute("idch", idcheque)	;
+		model.addAttribute("idch", idcheque);
 		model.addAttribute("modal", "modal");
 		model.addAttribute("exampleModal", "#exampleModal");
 		System.out.println("idCarnet" +idcarnet);

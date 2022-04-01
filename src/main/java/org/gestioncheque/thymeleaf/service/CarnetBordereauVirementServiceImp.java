@@ -38,7 +38,7 @@ public class CarnetBordereauVirementServiceImp implements CarnetBordereauViremen
 	//pagination liste BVs
 	public Page<BordereauVirement> listebvs(long id,int page) {
 		// TODO Auto-generated method stub
-		return carnetbordereauvirementrepository.listbvs(id,PageRequest.of(page,8));
+		return carnetbordereauvirementrepository.listbvs(id,PageRequest.of(page,7));
 	}
 	
 	@Override

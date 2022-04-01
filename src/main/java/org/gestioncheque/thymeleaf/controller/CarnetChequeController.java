@@ -133,6 +133,7 @@ public class CarnetChequeController {
 			model.addAttribute("pageactuel",page);
 			model.addAttribute("nbrepage",nbrepage);
 			model.addAttribute("id",id);
+			model.addAttribute("numcc", 0);
 		
 		model.addAttribute("cheque",listeChq.getContent());
 		return "listeCheque";
@@ -146,18 +147,14 @@ public class CarnetChequeController {
 		/*
 		 * reportService.exportreport(id); return "listeCheque";
 		 */
-		 
-		
-		
 		  String generer=carnetChequeReportService.generateReport(id); List<Cheque>
 		  listeChq=carnetchequeservice.listecheque(id);
 		  model.addAttribute("cheque",listeChq); model.addAttribute("generer",generer);
-		  
 		  return "report";
 	}
 	
 	
-	@PostMapping("/listcheque/chequeedit")
+	@PostMapping("/chequeedit")
 	public String BVStatus(ChequeForm e) {
 		System.out.println(e.getStatut());
 		System.out.println(e.getIdcarnet());
@@ -167,7 +164,7 @@ public class CarnetChequeController {
 		c.setStatCQ(e.getStatut());
 		chequeRepository.save(c);
 		
-		return "redirect:/cheques/listecheques";
+		return "redirect:/listcheque?id="+e.getIdcarnet()+"&page="+e.getPage();
 	}
 	@RequestMapping(value = "/listcheque/takedata",method = RequestMethod.GET)
 	public String updateEmployer(Model model,@RequestParam(name = "idc") String idcarnet ,@RequestParam(name = "idch")  String idcheque){

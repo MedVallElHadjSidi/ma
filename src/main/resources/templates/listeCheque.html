@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="child">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorator="child">
+
 <head>
-<meta charset="utf-8"/>
-<title>Liste des cheques</title>
+  <meta charset="utf-8" />
+  <title>Liste des cheques</title>
+  <script >
+  var yourGlobalVariable;
+  </script>
+  
 
 </head>
 
@@ -13,82 +18,247 @@
 
 
 
-<div class="container-fluid"  layout:fragment="child">
-    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Erreur</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-               
-            </div>
-        </div>
-    </div>
+  <div class="container-fluid" layout:fragment="child">
+
     <div class="card bg-white">
-        <div class="card-header card-color">
-            <p class="h2 text-center text-uppercase font-weight-bold pt-2">Liste des chèques </p>
+      <div class="card-header card-color">
+        <p class="h2 text-center text-uppercase font-weight-bold pt-2">Liste des chèques </p>
+      </div>
+      <div class="card-body container-fluid">
+        <div>
+
         </div>
-         <div class="card-body container-fluid">
-         <div>
-        
-         </div>
-   
-                 <div class="">
-                    <table id="tachat" class="table table-bordered  table-striped mb-0">
-                        <thead>
-                        <tr class="text-uppercase bg-light  w-100">
-                            <th>ID</th><th>NUMCHEQUE</th><th>STATUT</th><th>NUM CC</th><th>action</th>
-                        </thead>
-                        <tbody id="table-content">
-                          <tr th:each="c:${cheque}">
-<td th:text="${c.id}">
-<td th:text="${c.numCQ}"></td><td th:text="${c.statCQ}"></td><td th:text="${c.numCC}"></td>
-<td>
-<!-- Button trigger modal -->
-<a th:href="@{/listcheque/takedata(idc=${c.numCC},idch=${c.id})}" class="btn btn-primary"  >
+
+        <div class="">
+          <table id="tachat" class="table table-bordered  table-striped mb-0">
+            <thead>
+              <tr class="text-uppercase bg-light  w-100">
+                <th>ID</th>
+                <th>NUMCHEQUE</th>
+                <th>STATUT</th>
+                <th>NUM CC</th>
+                <th sec:authorize="hasAuthority('ADMIN')">action</th>
+            </thead>
+            <tbody id="table-content">
+              <tr th:each="c:${cheque}">
+                <td th:text="${c.id}">
+                <td th:text="${c.numCQ}"></td>
+                <td th:text="${c.statCQ}"></td>
+                <td th:text="${c.numCC}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                  <!-- Button trigger modal @{/listcheque/takedata(idc=${c.numCC},idch=${c.id})}  -->
+                 <!--  <a class="btn btn-primary  "th:attr="onclick=|takedata('${c.numCC}','${c.id}')|"  >
 
 
-  Statut
-</a>
+                    Statut
+                  </a> -->
+                  
+                  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal"   th:attr="data-target='#exampleModal'+${c.id}" >
+  Status
+</button>
 
-</td>
-</tr>
-                        </tbody>
-                    </table>
-                     <div class="mt-3">
-                             <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item" th:if="${pageactuel}>0">
-      <a class="page-link" th:href="@{/listcheque(id=${id},page=${pageactuel-1})}"aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li th:class="${pageactuel==status.index}?'page-item active':'page-item'" th:each="page,status:${pages}">
-    <a th:href="@{/listcheque(id=${id},page=${status.index})}" th:text="${status.index+1}" class="page-link"></a>
-    </li>
+<!-- Modal -->
+<div class="modal fade"  th:attr="id='exampleModal'+${c.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                <form th:action="@{chequeedit}" method="post">
+    
 
-    <li class="page-item" th:if="${pageactuel}+1 < ${nbrepage}">
-      <a class="page-link" th:href="@{/listcheque(id=${id},page=${pageactuel+1})}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-                             </div>
-                </div>
-            </div>
-        
+ 
+      <div class="col-sm-12 mb-2">
+      
+                        <label for="nom">Choisissez le statut du cheque : </label>
+                       <select name="statut"  class="form-control" id="statut" >
+						    <option value="Payer">Payer</option>
+						    <option value="Mise en opposition">Mise en opposition</option>
+					   </select>
+                    </div>
+                       <div class="col-sm-12 mb-2"  >
+                        <label for="nom">Id Carnet : </label>
+                        <input class="form-control" type="text" name="idcarnet"  th:value="${c.numCC}" >
+
+                    </div>
+                        <div class="col-sm-12 mb-2" >
+                        <label for="nom">Numero cheque : </label>
+                        <input class="form-control" type="text"   name="numcheque"  th:value="${c.numCQ}">
+                        
+                        </div>
+                         <div class="col-sm-12 mb-2" style="visibility: hidden;">
+                        <label for="nom">Id cheque : </label>
+                        <input class="form-control" type="text"   name="idcheque"  th:value="${c.id}">
+                            <input class="form-control" type="number"   name="page"  th:value="${pageactuel}">
+                    </div>
+                  
+
+      
+      <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+          </form>
+      </div>
+     
     </div>
+  </div>
 </div>
-<script type="text/javascript">
+                  
+                  
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-3">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item" th:if="${pageactuel}>0">
+                  <a class="page-link" th:href="@{/listcheque(id=${id},page=${pageactuel-1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li th:class="${pageactuel==status.index}?'page-item active':'page-item'"
+                  th:each="page,status:${pages}">
+                  <a th:href="@{/listcheque(id=${id},page=${status.index})}" th:text="${status.index+1}"
+                    class="page-link"></a>
+                </li>
+
+                <li class="page-item" th:if="${pageactuel}+1 < ${nbrepage}">
+                  <a class="page-link" th:href="@{/listcheque(id=${id},page=${pageactuel+1})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script th:inline="javascript">
+      function takedata(a,b){
+        
+ 
+        
+
+          $(".statut").attr("data-toggle", "modal");
+       
+          $(".statut").attr("data-target", "#exampleModal");
+          
+      
+          
+          $(".statut").html(
+                  "<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>"+
+                " <div class='modal-dialog' role='document'>  <div class='modal-content'>  <div class='modal-header'>"+
+                 "<h5 class='modal-title' id='exampleModalLabel'>"+"status"+"</h5>"+ "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>"+
+                 " <span aria-hidden='true'>&times;</span>"+
+                 " </button>"+
+               "</div>"+
+               "<div class='modal-body'>"+
+                        "<form action='chequeedit' method='post'>"+
+                        "      <div class='col-sm-12 mb-2'>"+
+            
+          " <label for='nom'>Choisissez le statut du cheque : </label>"+
+           "<select name='statut'  class='form-control' id='statut' >"+
+      "<option value='Payer'>Payer</option>"+
+      "<option value='Mise en opposition'>Mise en opposition</option>"+
+      "</select>"+
+       " </div>"+"<div class='col-sm-12 mb-2'  >"+
+                             "<label for='nom'>Id Carnet : </label>"
+                             +"<input class='form-control' type='text' name='idcarnet'  value="+a+" >"+
+                          "</div>"+
+                       "<div class='col-sm-12 mb-2' >"+
+                             " <label for='nom'>Id cheque : </label>"+
+                             " <input class='form-control' type='text'   name='idcheque'  value="+b+">"+
+                         "</div>"+
+                        "<div class='modal-footer'>"
+                  +"<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>"+
+                  "<button type='submit' class='btn btn-primary'>Save changes</button>"+
+             " </div>"+
+         " </form>"+
+               " </div>"+
+              
+           "   </div>"+
+          "  </div>"+
+         "</div>"
+
+
+
+                )
+
+
+      
+
+      }
+    </script>
+
+    <!-- Modal -->
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                  <form th:action="@{chequeedit}" method="post">
+    
+
+ 
+      <div class="col-sm-12 mb-2">
+      
+                        <label for="nom">Choisissez le statut du cheque : </label>
+                       <select name="statut"  class="form-control" id="statut" >
+						    <option value="Payer">Payer</option>
+						    <option value="Mise en opposition">Mise en opposition</option>
+					   </select>
+                    </div>
+                       <div class="col-sm-12 mb-2"  >
+                        <label for="nom">Id Carnet : </label>
+                        <input class="form-control" type="text" name="idcarnet"  th:value="${numcc}" >
+                        <script type="text/javascript">
+                        alert(idcarnet);
 
 </script>
+                    </div>
+                        <div class="col-sm-12 mb-2" >
+                        <label for="nom">Id cheque : </label>
+                        <input class="form-control" type="text"   name="idcheque"  th:value="idc">
+                    </div>
+                  
+
+      
+      <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+          </form>
+          </div>
+        
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+
+
+  <!-- Button trigger modal -->
+
+
+
+
 </body>
 
 

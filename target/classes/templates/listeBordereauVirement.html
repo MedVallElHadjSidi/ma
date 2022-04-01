@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="child">
 <head>
 <meta charset="utf-8"/>
@@ -43,19 +44,69 @@
                     <table id="tachat" class="table table-bordered  table-striped ">
                         <thead>
                         <tr class="text-uppercase bg-light  w-100">
-                            <th>ID</th><th>NUMBV</th><th>STATUT</th><th>NUM CBV</th><th>action</th>
+                            <th>ID</th><th>NUMBV</th><th>STATUT</th><th>NUM CBV</th><th sec:authorize="hasAuthority('ADMIN')">action</th>
                         </thead>
                         <tbody id="table-content">
                           <tr th:each="c:${bordereauvirement}">
 <td th:text="${c.id}">
 <td th:text="${c.numBV}"></td><td th:text="${c.statBV}"></td><td th:text="${c.numCBV}"></td>
-<td>
+<td sec:authorize="hasAuthority('ADMIN')" >
 <!-- Button trigger modal -->
-<a th:href="@{/listbordereauvirement/takedata(idc=${c.numCBV},idch=${c.id})}" class="btn btn-primary"  >
+<button type="button" class="btn btn-primary" data-toggle="modal"   th:attr="data-target='#exampleModal'+${c.id}" >
+  Status
+</button>
 
+<!-- Modal -->
+<div class="modal fade"  th:attr="id='exampleModal'+${c.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              <form th:action="@{bvedit}" method="post">
+    
 
-  Statut
-</a>
+ 
+      <div class="col-sm-12 mb-2">
+      
+                        <label for="nom">Choisissez le statut du cheque : </label>
+                       <select name="statut"  class="form-control" id="statut" >
+						    <option value="Payer">Payer</option>
+						    <option value="Mise en opposition">Mise en opposition</option>
+					   </select>
+                    </div>
+                       <div class="col-sm-12 mb-2"  >
+                        <label for="nom">Id Carnet : </label>
+                        <input class="form-control" type="text" name="idcarnet"  th:value="${c.numCBV}" >
+
+                    </div>
+                        <div class="col-sm-12 mb-2" >
+                        <label for="nom">Numero cheque : </label>
+                        <input class="form-control" type="text"   name="numerocheque"  th:value="${c.numBV}" >
+                        
+                        </div>
+                         <div class="col-sm-12 mb-2" style="visibility: hidden;">
+                        <label for="nom">Id cheque : </label>
+                     <input class="form-control" type="text"   name="idcheque"  th:value="${c.id}" >
+                            <input class="form-control" type="number"   name="page"  th:value="${pageactuel}">
+                    </div>
+                  
+
+      
+      <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+          </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 
 </td>
 </tr>
@@ -71,11 +122,11 @@
       </a>
     </li>
     <li th:class="${pageactuel==status.index}?'page-item active':'page-item'" th:each="page,status:${pages}">
-    <a th:href="@{/listbordereauvirement(page=${status.index})}" th:text="${status.index+1}" class="page-link"></a>
+    <a th:href="@{/listbordereauvirement(id=${id},page=${status.index})}" th:text="${status.index+1}" class="page-link"></a>
     </li>
 
     <li class="page-item" th:if="${pageactuel}+1 < ${nbrepage}">
-      <a class="page-link" th:href="@{/listbordereauvirement(page=${pageactuel+1})}" aria-label="Next">
+      <a class="page-link" th:href="@{/listbordereauvirement(id=${id},page=${pageactuel+1})}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
       </a>
